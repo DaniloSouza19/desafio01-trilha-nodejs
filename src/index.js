@@ -83,8 +83,8 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
   return response.status(201).json(todo);
 });
 
-app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
-  const { user } = request;
+app.put('/todos/:id', checksExistsUserAccount, checksExistsTodo, (request, response) => {
+  const { user, todoIndex } = request;
   const { title, deadline } = request.body;
   const { id } = request.params;
   
@@ -96,11 +96,10 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   response.json(user.todos[todoIndex]);
 });
 
-app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-  const { user } = request;
-  const { id } = request.params;
+app.patch('/todos/:id/done', checksExistsUserAccount, checksExistsTodo , (request, response) => {
+  const { user, todoIndex } = request;
 
-  const todo = user.todos.find(todo => todo.id === id);
+  const todo = user.todos[todoIndex];
 
   todo.done = true;
 
