@@ -109,9 +109,9 @@ app.patch('/todos/:id/done', checksExistsUserAccount, checksExistsTodo , (reques
 app.delete('/todos/:id', checksExistsUserAccount, checksExistsTodo ,(request, response) => {
   const { user, todoIndex } = request;
  
-  user.todos.slice(todo, 1);
+  user.todos.splice(todoIndex, 1);
 
-  return response.json(user.todos);
+  return response.status(204).send();
 });
 
 module.exports = app;
