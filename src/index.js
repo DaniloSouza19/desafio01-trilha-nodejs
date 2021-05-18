@@ -72,7 +72,7 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   user.todos[todoIndex].title = title;
   user.todos[todoIndex].deadline = new Date(deadline);
 
-  response.status(201).json(user.todos[todoIndex]);
+  response.json(user.todos[todoIndex]);
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
