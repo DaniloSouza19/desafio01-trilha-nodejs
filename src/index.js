@@ -106,12 +106,9 @@ app.patch('/todos/:id/done', checksExistsUserAccount, checksExistsTodo , (reques
   return response.json(todo);
 });
 
-app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-  const { user } = request;
-  const { id } = request.params;
+app.delete('/todos/:id', checksExistsUserAccount, checksExistsTodo ,(request, response) => {
+  const { user, todoIndex } = request;
  
-  const todo = user.todos.find(todo => todo.id === id);
-
   user.todos.slice(todo, 1);
 
   return response.json(user.todos);
